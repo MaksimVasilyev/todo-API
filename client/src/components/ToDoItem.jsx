@@ -14,7 +14,7 @@ function ToDoItem(props) {
    }
 
    function handleDelete(event) {
-    props.onDelete(props.id);
+    props.onDelete(props.itemText);
   }
 
   function handleUpdate(event) {

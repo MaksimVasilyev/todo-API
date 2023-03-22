@@ -2,12 +2,28 @@ const dotenv = require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const cors = require('cors')
+const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const User = require('./models/UserSchema');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const toDoRouter = require('./routes/toDoRouter');
+const UserRouter = require('./routes/UserRouter');
+
+app.use(session({
+  secret: "aezakmi",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 dbConnect().catch((err) => console.log(err));
 
@@ -16,7 +32,16 @@ async function dbConnect() {
   console.log('DB connected');
 }
 
-app.use('/', toDoRouter);
+
+
+
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+app.use('/', toDoRouter, UserRouter);
 
 const PORT = process.env.PORT || 3000;
 

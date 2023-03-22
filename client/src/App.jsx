@@ -4,7 +4,7 @@ import CreateArea from "./components/CreateArea";
 import ToDoItem from "./components/ToDoItem";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+const id = "641a083e2998a28b8f0b2e6b"
 
 function App() {
   
@@ -16,8 +16,8 @@ function App() {
  const addItem = async (itemText) => {
  
   try{
-   const res = await axios.post('http://localhost:3000/api/item', {item: itemText})
-    setItems(prev => [...prev, res.data.data.item]);
+   const res = await axios.post(`http://localhost:3000/api/user/${id}`, {item: itemText})
+    setItems(prev => [...prev, res.data.data.newItem]);
     console.log(res.data)
     
   }catch(err){
@@ -29,8 +29,9 @@ function App() {
  useEffect(()=>{
   const getItemsList = async () => {
     try{
-      const res = await axios.get('http://localhost:3000/api/items')
-      setItems(res.data.data.allTodoItems);
+
+      const res = await axios.get(`http://localhost:3000/api/user/${id}`)
+      setItems(res.data.data);
       console.log(res.data)
       console.log('render')
     }catch(err){
@@ -40,10 +41,10 @@ function App() {
   getItemsList()
 },[]);
 
- const deleteItem = async (id) => {
+ const deleteItem = async (itemText) => {
   try {
-   const res = await axios.delete(`http://localhost:3000/api/item/${id}`)
-   const updatedListItems = items.filter(item=> item._id !== id);
+   const res = await axios.delete(`http://localhost:3000/api/user/${id}`, {item: itemText})
+   const updatedListItems = items.filter(item=> item !== itemText);
    setItems(updatedListItems)
   } catch(err) {
    console.log (err)
@@ -53,9 +54,9 @@ function App() {
  const updateItem = async (id, newText) => {
   
   try {
-    const res = await axios.patch(`http://localhost:3000/api/item/${id}`, {item: newText})
+    const res = await axios.patch(`http://localhost:3000/api/user/${id}`, {item: newText})
     console.log(res.data)
-    const updatedItemIndex = items.findIndex(item => item._id === id);
+    const updatedItemIndex = items.findIndex(item => item === newText);
     setItems(prevItems => {
       const updatedItems = [...prevItems];
       updatedItems[updatedItemIndex].item = newText;
@@ -78,9 +79,9 @@ function App() {
       {items.map((item, index) => {
         return (
           <ToDoItem 
-            id = {item._id}
-            key={item._id}
-            itemText={item.item}
+            
+            key={index}
+            itemText={item}
             onUpdate={updateItem}
             onDelete={deleteItem}
           />
