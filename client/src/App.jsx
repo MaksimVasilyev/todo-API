@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import React, {useState, useEffect} from 'react';
 
@@ -12,14 +12,14 @@ function App() {
   const [userId, SetuserId] = useState('');
 
   return (
-    <Router>
+    <BrowserRouter>
         <Routes>
-        <Route path="/api" element={<StartingPage />} />
+        <Route path="/api/" element={<StartingPage />} />
         <Route path="/api/login" element={<Login SetuserId={SetuserId} />} />
         <Route path="/api/register" element={<Register SetuserId={SetuserId} />} />
         <Route path={`/api/user/${userId}`} element={<ToDoList userId={userId} />} />
         </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
   

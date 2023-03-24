@@ -5,14 +5,14 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
+
 
 const User = require('./models/UserSchema');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-const toDoRouter = require('./routes/toDoRouter');
+
 const UserRouter = require('./routes/UserRouter');
 const authRouter = require('./routes/authRouter');
 app.use(session({
