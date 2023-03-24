@@ -19,7 +19,7 @@ function ToDoItem(props) {
 
   function handleUpdate(event) {
     event.preventDefault();
-    props.onUpdate(props.id, updateItemText);
+    props.onUpdate(props.index, updateItemText);;
     setUpdatingItem(false)
     setUpdateItemText('');
   }

@@ -6,13 +6,13 @@ const passportLocalMongoose = require('passport-local-mongoose');
 // const Email = require('mongoose').Schema.Types.Email;
 
 const UserSchema = new mongoose.Schema({
-  email: {
+  username: {
     type: String,
-    required: true
+    // required: true
   },
   password: {
     type: String,
-     required: true
+    //  required: true
   },
   items: {
    type: [String],

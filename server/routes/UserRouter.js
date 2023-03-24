@@ -46,9 +46,9 @@ const User = require('../models/UserSchema');
   //create a new Item
   router.post('/api/user/:id', async (req, res)=> {
     try{
-      const user = await User.findByIdAndUpdate(req.params.id, { $push: { items: req.body.item } }, { new: true });
+      const user = await User.findByIdAndUpdate({_id: req.params.id}, { $push: { items: req.body.item } }, { new: true });
       const newItem = user.items[user.items.length - 1]; 
-        
+        console.log(req.body.item)
        res.status(201).json({
         status: 'success',
         data: newItem,
@@ -69,8 +69,7 @@ router.delete('/api/user/:id',  async (req, res)=>{
       { $pull: { items: req.body.item } },
       { new: true }
     ) ;
-    console.log(req.body.item)
-    console.log(updatedUser);
+   
     res.status(200).json({
       status: 'success',
       data: null,
@@ -89,8 +88,8 @@ router.delete('/api/user/:id',  async (req, res)=>{
 router.patch('/api/user/:id',  async (req, res)=>{
   try{
     const updatedUser = await User.findOneAndUpdate(
-      { _id: req.params.id, items: req.body.oldItem },
-      { $set: { "items.$": req.body.newItem } },
+      { _id: req.params.id},
+      { $set: { [`items.${req.body.index}`]: req.body.item } },
       { new: true }
     ) ;
     console.log(req.body.item)

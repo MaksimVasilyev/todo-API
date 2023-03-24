@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 const toDoRouter = require('./routes/toDoRouter');
 const UserRouter = require('./routes/UserRouter');
-
+const authRouter = require('./routes/authRouter');
 app.use(session({
   secret: "aezakmi",
   resave: false,
@@ -41,7 +41,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-app.use('/', toDoRouter, UserRouter);
+app.use('/', authRouter, UserRouter);
 
 const PORT = process.env.PORT || 3000;
 
