@@ -12,6 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const AppError = require('./utils/appError');
+const globalErrorHandler = require('./controllers/errorController');
+
 const UserRouter = require('./routes/UserRouter');
 const authRouter = require('./routes/authRouter');
 app.use(session({
@@ -41,6 +44,10 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use('/', authRouter, UserRouter);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find${req.originalUrl} on this server!`, 404));
+});
 
 const PORT = process.env.PORT || 3000;
 

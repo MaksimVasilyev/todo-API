@@ -22,6 +22,7 @@ exports.authLogin = (req,res) =>{
     });
     req.login(user, function(err){
         if (err) {
+            console.log(err);
             res.status(400).json({ message: 'Failed to login user.' });
         } else {
             passport.authenticate("local") (req, res, function(){

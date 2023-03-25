@@ -29,7 +29,7 @@ function Register(props) {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState(null);
+  //const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -38,16 +38,17 @@ function Register(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (formData.password === formData.confirmPassword) {
+   // if (formData.password === formData.confirmPassword) {
       try {
       const res = await axios.post("http://localhost:3000/api/register", {username: formData.email, password: formData.password});  
       console.log(res.data);
       props.SetuserId (res.data.userId);
       navigate(`/api/user/${res.data.userId}`);
       } catch (err) {
-      setError(err.response.data.message);
+        console.log(err)
+       //setError(err.response.data.message);
       }
-     } else {setError(error)}
+     //} else {setError(error)}
   };
 
   return (
@@ -95,7 +96,7 @@ function Register(props) {
             id="password"
            // autoComplete="current-password"
           />
-          <TextField
+          {/* <TextField
             onChange={handleInputChange}
             value = {formData.confirmPassword}
             margin="normal"
@@ -106,7 +107,7 @@ function Register(props) {
             type="password"
             id="confirmPassword"
             //autoComplete="current-password"
-          />
+          /> */}
           
           <Button
             type="submit"

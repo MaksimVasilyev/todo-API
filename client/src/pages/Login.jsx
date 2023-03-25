@@ -28,6 +28,7 @@ function Login(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -50,6 +51,8 @@ function Login(props) {
     props.SetuserId (res.data.userId)
     navigate(`/api/user/${res.data.userId}`);
     } catch (err) {
+      console.error(error);
+      setError('Invalid email or password.');
       console.log(err);
     }
   };
@@ -73,6 +76,11 @@ function Login(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {error && (
+            <Typography variant="body2" color="error" gutterBottom>
+              {error}
+            </Typography>
+          )}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               onChange={handleEmailChange}
