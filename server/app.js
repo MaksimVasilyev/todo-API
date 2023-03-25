@@ -1,6 +1,5 @@
 const dotenv = require('dotenv').config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const session = require('express-session');
@@ -16,7 +15,7 @@ app.use(cors());
 const UserRouter = require('./routes/UserRouter');
 const authRouter = require('./routes/authRouter');
 app.use(session({
-  secret: "aezakmi",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }));
