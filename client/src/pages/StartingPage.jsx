@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Footer from "../components/Footer";
 import axios from 'axios';
+import GoogleIcon from '@mui/icons-material/Google';
 
 function StartingPage(props) {
     const navigate = useNavigate();
@@ -52,6 +53,7 @@ function StartingPage(props) {
       </div>
       <div style= {{display: 'flex', width: '100%', justifyContent: 'center',  marginTop: '1rem'}}>
       <Button  onClick={handleClick} variant="contained" style={{ width: '31%', height: '36px', backgroundColor: '#f5ba13' }}>
+      <GoogleIcon style={{marginRight: '5px'}} />
       Sign in with Google
       </Button>
       </div>
