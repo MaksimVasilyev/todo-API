@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
-
-
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/UserSchema');
+
+
 
 const app = express();
 app.use(express.json());
@@ -39,8 +40,46 @@ async function dbConnect() {
 
 
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, {
+      id: user.id,
+      username: user.username,
+      picture: user.picture
+    });
+  });
+});
+
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
+});
+
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: "http://localhost:3000/auth/google/callback"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOne({ googleId: profile.id }).then((foundUser) => {
+      if (foundUser) {
+        return foundUser;
+      } else {
+        const newUser = new User({
+          googleId: profile.id
+        });
+        return newUser.save();
+      }
+    }).then((user) => {
+      return cb(null, user);
+    }).catch((err) => {
+      return cb(err);
+    });
+}
+));
 
 
 app.use('/', authRouter, UserRouter);

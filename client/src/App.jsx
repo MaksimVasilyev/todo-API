@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
 import ToDoList from "./pages/ToDoList";
@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
-        <Route path="/api/" element={<StartingPage />} />
+        <Route path="/api/" element={<StartingPage  SetuserId={SetuserId}/>} />
         <Route path="/api/login" element={<Login SetuserId={SetuserId} />} />
         <Route path="/api/register" element={<Register SetuserId={SetuserId} />} />
         <Route path={`/api/user/${userId}`} element={<ToDoList userId={userId} />} />

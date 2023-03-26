@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import CreateArea from "../components/CreateArea";
 import ToDoItem from "../components/ToDoItem";
 import Header from "../components/Header";
@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 
 function ToDoList(props) {
-  const id = props.userId
+  const id =  props.userId
   const  [items, setItems] = useState([]);
   
   

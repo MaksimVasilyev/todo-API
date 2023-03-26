@@ -32,3 +32,6 @@ exports.authLogin = (req,res) =>{
         }
     });
 };
+
+exports.authGoogle = passport.authenticate('google', { scope: ["openid","profile","email"] });
+exports.authGoogleCallback = passport.authenticate('google', { failureRedirect: '/api/login' });
