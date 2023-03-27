@@ -22,7 +22,7 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
-}));cd
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
