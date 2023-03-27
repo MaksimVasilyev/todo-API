@@ -9,7 +9,7 @@ const User = require('./models/UserSchema');
 
 
 
-//const app = express();
+const app = express();
 app.use(express.json());
 //app.use(cors());
 
