@@ -84,6 +84,12 @@ function(accessToken, refreshToken, profile, cb) {
 
 app.use('/', authRouter, UserRouter);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+});
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find${req.originalUrl} on this server!`, 404));
 });
