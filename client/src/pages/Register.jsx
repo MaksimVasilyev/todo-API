@@ -40,10 +40,10 @@ function Register(props) {
     event.preventDefault();
    // if (formData.password === formData.confirmPassword) {
       try {
-      const res = await axios.post("http://localhost:3000/api/register", {username: formData.email, password: formData.password});  
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/register`, {username: formData.email, password: formData.password});  
       console.log(res.data);
       props.SetuserId (res.data.userId);
-      navigate(`/api/user/${res.data.userId}`);
+      navigate(`/user/${res.data.userId}`);
       } catch (err) {
         console.log(err)
        //setError(err.response.data.message);

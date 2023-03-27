@@ -5,12 +5,13 @@ import Footer from "../components/Footer";
 import axios from 'axios';
 import GoogleIcon from '@mui/icons-material/Google';
 
+
 function StartingPage(props) {
     const navigate = useNavigate();
 
     const handleClick = async () => {
         try {
-     const res = await  axios.get('http://localhost:3000/auth/google')
+     const res = await  axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/google`)
     //  {
     //     // params: {
     //     //   response_type: 'code',
@@ -31,7 +32,7 @@ function StartingPage(props) {
       console.log(res.data.userId);
       
       props.SetuserId (res.data.userId)
-      navigate(`/api/user/${res.data.userId}`);
+      navigate(`/user/${res.data.userId}`);
       } catch(err) {
        console.log(err)
       };
@@ -44,10 +45,10 @@ function StartingPage(props) {
         Welcome to ToDo App!
       </Typography>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} >
-      <Button component={Link} to="/api/login" variant="contained" style={{ width: '15%', marginRight: '1rem', backgroundColor: '#f5ba13' }}>
+      <Button component={Link} to="/login" variant="contained" style={{ width: '15%', marginRight: '1rem', backgroundColor: '#f5ba13' }}>
         Sign In
       </Button>
-      <Button component={Link} to="/api/register" variant="contained" style={{ width: '15%', backgroundColor: '#f5ba13' }}>
+      <Button component={Link} to="/register" variant="contained" style={{ width: '15%', backgroundColor: '#f5ba13' }}>
         Register
       </Button>
       </div>

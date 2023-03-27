@@ -22,7 +22,7 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
-}));
+}));cd
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,7 +61,7 @@ passport.deserializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_ID,
   clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/callback"
+  callbackURL: process.env.CALL_BACK_URL
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOne({ googleId: profile.id }).then((foundUser) => {

@@ -16,7 +16,7 @@ function ToDoList(props) {
  const addItem = async (itemText) => {
  
   try{
-   const res = await axios.post(`http://localhost:3000/api/user/${id}`, {item: itemText})
+   const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/user/${id}`, {item: itemText})
     setItems(prev => [...prev, res.data.data]);
     console.log(res.data)
     console.log(res.data.data)
@@ -31,7 +31,7 @@ function ToDoList(props) {
   const getItemsList = async () => {
     try{
 
-      const res = await axios.get(`http://localhost:3000/api/user/${id}`)
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user/${id}`)
       setItems(res.data.data);
       console.log(res.data.data)
       console.log(res.data)
@@ -45,7 +45,7 @@ function ToDoList(props) {
 
  const deleteItem = async (itemText) => {
   try {
-   const res = await axios.delete(`http://localhost:3000/api/user/${id}`,   { data: { item: itemText } })                   // {item: itemText})
+   const res = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/user/${id}`,   { data: { item: itemText } })                   // {item: itemText})
    const updatedListItems = items.filter(item=> item !== itemText);
    setItems(updatedListItems)
   } catch(err) {
@@ -56,7 +56,7 @@ function ToDoList(props) {
  const updateItem = async (index, newText) => {
   
   try {
-    const res = await axios.patch(`http://localhost:3000/api/user/${id}`, { item: newText, index: index });
+    const res = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/user/${id}`, { item: newText, index: index });
     console.log(res.data)
     //const updatedItemIndex = items.findIndex(item => item[index] === newText);
     setItems(prevItems => {

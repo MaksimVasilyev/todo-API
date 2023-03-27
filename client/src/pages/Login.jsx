@@ -42,14 +42,14 @@ function Login(props) {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:3000/api/login', {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/login`, {
         username: email,
         password: password,
       });
       console.log(res.data);
       console.log(res.data.userId);
     props.SetuserId (res.data.userId)
-    navigate(`/api/user/${res.data.userId}`);
+    navigate(`/user/${res.data.userId}`);
     } catch (err) {
       console.error(error);
       setError('Invalid email or password.');
